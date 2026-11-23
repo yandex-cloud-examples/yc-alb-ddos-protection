@@ -66,7 +66,7 @@ resource "yandex_vpc_subnet" "subnet-1" {
 
 resource "yandex_vpc_subnet" "subnet-2" {
   name           = local.subnet_name2
-  zone           = "ru-central1-b"
+  zone           = "ru-central1-d"
   network_id     = yandex_vpc_network.ddos-network.id
   v4_cidr_blocks = ["192.168.2.0/24"]
 }
@@ -167,7 +167,7 @@ resource "yandex_compute_instance_group" "ddos-group" {
   }
 
   allocation_policy {
-    zones = ["ru-central1-a", "ru-central1-b"]
+    zones = ["ru-central1-a", "ru-central1-d"]
   }
 
   deploy_policy {
@@ -237,7 +237,7 @@ resource "yandex_alb_load_balancer" "ddos-protect-alb" {
     }
 
     location {
-      zone_id   = "ru-central1-b"
+      zone_id   = "ru-central1-d"
       subnet_id = yandex_vpc_subnet.subnet-2.id
     }
   }
